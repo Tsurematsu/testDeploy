@@ -1,0 +1,109 @@
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fade-in 1s ease;
+}
+
+@tailwind base;
+
+/* Ocultar la barra de desplazamiento pero mantener la funcionalidad */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* Para Firefox */
+* {
+  scrollbar-width: none;
+}
+
+/* Para IE y Edge */
+* {
+  -ms-overflow-style: none;
+}
+
+/* Asegurarse de que el contenido no se vea afectado por el navbar fijo */
+html, body {
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
+  scroll-behavior: auto;
+}
+
+body {
+  padding-top: 120px; /* Ajusta este valor según la altura de tu navbar */
+}
+
+/* Reset scroll para contenedores principales */
+#root, main {
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+@tailwind components;
+@tailwind utilities;
+
+.property-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+  height: 700px;
+}
+
+.property-container {
+  transition: all 0.5s ease-in-out;
+  transform-origin: center;
+}
+
+.property-grid:hover .property-container:not(:hover) {
+  transform: scale(0.95);
+  opacity: 0.5;
+}
+
+.property-container:hover {
+  transform: scale(1.05);
+  z-index: 10;
+}
+
+@layer base {
+  html {
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow-x: hidden;
+  }
+  body {
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
+  }
+  #root {
+    overflow-x: hidden;
+    width: 100%;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    @apply bg-primary-600 hover:bg-primary-700 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+  }
+  
+  .btn-secondary {
+    @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors;
+  }
+
+  .property-grid {
+    @apply grid grid-cols-6 gap-4 h-[700px];
+  }
+
+  .property-container {
+    @apply transition-all duration-500 ease-in-out;
+  }
+
+  .property-grid:has(.property-container:hover) .property-container:not(:hover) {
+    @apply scale-95 opacity-50;
+  }
+
+  .property-container:hover {
+    @apply scale-105 z-10;
+  }
+}
